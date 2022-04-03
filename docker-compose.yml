@@ -1,0 +1,21 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  desafio-go:
+    image: urnau/fullcycle-desafio-go
+    build: .
+
+  environment-go-init:
+    image: golang:alpine3.15
+    volumes:
+      - ./build_linux:/go
+    command: go mod init hello
+  
+  environment-go-build:
+    image: golang:alpine3.15
+    volumes:
+      - ./build_linux:/go
+    command: go build
+    environment:
+      - GO111MODULE=off
+    
+
