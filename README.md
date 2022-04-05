@@ -21,6 +21,9 @@ Para executar a aplicação go
 Para fazer build da aplicação go
 > go build
 
+## Docker Multistage Building
+Para realizar multistage building foi necessário utilizar duas imagens docker em um mesmo Dockerfile, onde a segunda imagem chama os valores processados pela primeira imagem. Assim podemos ter uma imagem docker que compila um código Go Lang, e depois de compilado podemos pegar o retorno dessa ação e então utilizarmos em nossa imagem final.
+
 ## Imagem Docker selecionada
 Foi selecionado a imagem:
 [scratch](https://hub.docker.com/_/scratch)
@@ -28,10 +31,8 @@ Foi selecionado a imagem:
 A imagem docker selecionada não possuí sequer terminal SH ou BASH, por isso na imagem, precisaremos executar sempre diretamente um binário.
 
 ## Docker-Compose
-Em nosso docker-compose.yml possuímos 3 configurações de serviços disponíveis:
+Em nosso docker-compose.yml possuímos 1 configuração de serviço disponível:
 - <b>desafio-go</b>: este é o serviço cujo qual utilizaremos para gerar a imagem docker que será upada e entregue na atividade.
-- <b>environment-go-init</b>: este serviço serve para iniciarmos o ambiente de um projeto Go em ambiente linux.
-- <b>environment-go-build</b>: este serviço serve para realizarmos o build de um aplicativo Go em um binário executável em linux.
 
 ## Scripts
 Temos 4 scrips principais para facilitar a instalação e configuração do ambiente.
@@ -40,9 +41,3 @@ Temos 4 scrips principais para facilitar a instalação e configuração do ambi
 
 - Este script serve para fazer Build e Push do Docker-Compose. Caso vá subir para um diretório de sua propriedade não se esqueça de alterar o `docker-compose.yml` para o seu repositório.
 > sh run-build-and-push-desafio-go.sh
-
-- Este script faz a execução do serviço desafio-go presente no arquivo do Docker-Compose.
-> sh run-desafio-go.sh
-
-- Este script faz a execução da instalação e build do Go em ambiente linux. Caso você customize o arquivo da pasta raiz `hello.go` essa alteração será refletida durante a execução deste comando.
-> sh run-environment-go.sh
